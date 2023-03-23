@@ -7,14 +7,16 @@ pygame.init()
 WIDTH = 800
 HEIGHT = 600
 
-# Colors
+# Simple Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-# The display
+# The display for the Game
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Invaders")
 
+# The player class is used from the sprite class provided by Pygame
+# Basic left and right movement and position
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -46,6 +48,7 @@ class Player(pygame.sprite.Sprite):
             bullets.add(bullet)
             bullets_fired += 1
 
+# Alien class from sprite, which is the aliens            
 class Alien(pygame.sprite.Sprite):
         def __init__(self):
             super().__init__()
@@ -61,6 +64,7 @@ class Alien(pygame.sprite.Sprite):
             if self.rect.left < 0 or self.rect.right > WIDTH:
                 self.speed_x = -self.speed_x
 
+# The bullets from the player class, uses the Spacebar                
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -86,6 +90,7 @@ num_aliens = 10
 bullet_limit = num_aliens + 5
 bullets_fired = 0
 
+# Create 10 aliens for the player to interract with
 for i in range(10):
     alien = Alien()
     all_sprites.add(alien)
@@ -98,6 +103,8 @@ clock = pygame.time.Clock()
 
 game_over = False
 
+# Simple loop where player wins if all aliens are destroyed.
+# Loses if the user runs out of bullets and there are aliens remaining.
 while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
